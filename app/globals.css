@@ -1,0 +1,589 @@
+@import "tailwindcss";
+
+/*
+  Learnsphere — "Modern Pedagogic Clarity"
+  ------------------------------------------------------------------
+  Ported from stitch_full_page_ui_ux_design/modern_pedagogic_clarity.
+
+  Corporate modernism over tactile document architecture: a cool slate
+  canvas, pure white document cards, and one saturated indigo reserved
+  for action. Emerald marks anything validated — a correct key, a
+  completed step, an active Kurikulum Merdeka. Amber carries AI quota
+  and anything that needs a second look.
+
+  Plus Jakarta Sans across every role, including the exam paper itself:
+  the reference system has no serif, so `--font-serif` is aliased to the
+  sans stack rather than stripped from markup. Question stems keep their
+  larger size and looser leading, which is what actually made them read
+  as a document.
+
+  The tokens keep their original names so a screen that was written
+  against "paper / sheet / rule / mark" repaints with the rest of the
+  app. What changed is the value behind each name, not the vocabulary.
+*/
+
+@theme {
+  --font-sans: var(--font-jakarta), ui-sans-serif, system-ui, sans-serif;
+  /* No serif in this system. Kept as an alias so existing markup holds. */
+  --font-serif: var(--font-jakarta), ui-sans-serif, system-ui, sans-serif;
+
+  /*
+    Reference type roles (stich_prd_landing_page_generator). Plus Jakarta Sans
+    carries every display/body role; Inter handles labels, tabular data, and
+    the exam-mono monospace slot. Sizes come from explicit text-* classes.
+  */
+  --font-display-hero: var(--font-jakarta), ui-sans-serif, system-ui, sans-serif;
+  --font-headline-lg: var(--font-jakarta), ui-sans-serif, system-ui, sans-serif;
+  --font-headline-md: var(--font-jakarta), ui-sans-serif, system-ui, sans-serif;
+  --font-headline-sm: var(--font-jakarta), ui-sans-serif, system-ui, sans-serif;
+  --font-body-lg: var(--font-jakarta), ui-sans-serif, system-ui, sans-serif;
+  --font-body-md: var(--font-jakarta), ui-sans-serif, system-ui, sans-serif;
+  --font-body-sm: var(--font-jakarta), ui-sans-serif, system-ui, sans-serif;
+  --font-label-md: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+  --font-label-sm: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+  --font-exam-mono: var(--font-inter), ui-monospace, monospace;
+
+  /*
+    The type scale behind those roles, so `font-headline-lg text-headline-lg`
+    resolves to the DESIGN.md spec verbatim — size, leading, tracking, and
+    weight all travel with the name instead of being re-guessed per screen.
+  */
+  --text-display-hero: 40px;
+  --text-display-hero--line-height: 48px;
+  --text-display-hero--letter-spacing: -0.02em;
+  --text-display-hero--font-weight: 700;
+  --text-display-hero-mobile: 30px;
+  --text-display-hero-mobile--line-height: 38px;
+  --text-display-hero-mobile--letter-spacing: -0.01em;
+  --text-display-hero-mobile--font-weight: 700;
+  --text-headline-lg: 28px;
+  --text-headline-lg--line-height: 36px;
+  --text-headline-lg--letter-spacing: -0.01em;
+  --text-headline-lg--font-weight: 600;
+  --text-headline-lg-mobile: 22px;
+  --text-headline-lg-mobile--line-height: 30px;
+  --text-headline-lg-mobile--letter-spacing: -0.01em;
+  --text-headline-lg-mobile--font-weight: 600;
+  --text-headline-md: 20px;
+  --text-headline-md--line-height: 28px;
+  --text-headline-md--font-weight: 600;
+  --text-headline-sm: 16px;
+  --text-headline-sm--line-height: 24px;
+  --text-headline-sm--font-weight: 600;
+  --text-body-lg: 16px;
+  --text-body-lg--line-height: 26px;
+  --text-body-lg--font-weight: 400;
+  --text-body-md: 14px;
+  --text-body-md--line-height: 22px;
+  --text-body-md--font-weight: 400;
+  --text-body-sm: 13px;
+  --text-body-sm--line-height: 18px;
+  --text-body-sm--font-weight: 400;
+  --text-label-md: 12px;
+  --text-label-md--line-height: 16px;
+  --text-label-md--letter-spacing: 0.02em;
+  --text-label-md--font-weight: 600;
+  --text-label-sm: 11px;
+  --text-label-sm--line-height: 14px;
+  --text-label-sm--letter-spacing: 0.04em;
+  --text-label-sm--font-weight: 500;
+  --text-exam-mono: 14px;
+  --text-exam-mono--line-height: 22px;
+  --text-exam-mono--font-weight: 500;
+
+  /*
+    Reference palette (Modern Edu-Administrative Workspace). Edu Emerald is the
+    lead accent, Ocean Cerulean the informational cue, Warm Amber the AI/credit
+    signal. Named to match the reference markup's utility classes verbatim.
+  */
+  --color-surface-light: #f8f9ff;
+  --color-surface-dark: #0b1c30;
+  --color-surface-paper-light: #f8fafc;
+  --color-surface-paper-dark: #14253e;
+  --color-surface-card-light: #ffffff;
+  --color-surface-card-dark: #1a2e44;
+  --color-on-surface-light: #0b1c30;
+  --color-on-surface-dark: #f1f5f9;
+  --color-on-surface-variant-light: #3d4947;
+  --color-on-surface-variant-dark: #a6b3d4;
+  --color-text-ink-light: #0f172a;
+  --color-text-ink-dark: #f8fafc;
+  --color-border-subtle-light: #e2e8f0;
+  --color-border-subtle-dark: #334155;
+  --color-kurikulum-k13-light: #0d9488;
+  --color-kurikulum-k13-dark: #0a7f81;
+  --color-kurikulum-merdeka-light: #0284c7;
+  --color-kurikulum-merdeka-dark: #006b99;
+  --color-credit-amber-light: #d97706;
+  --color-credit-amber-dark: #b56105;
+  --color-state-success-light: #10b981;
+  --color-state-success-dark: #34d399;
+  --color-state-error-light: #ef4444;
+  --color-state-error-dark: #f87171;
+
+  /*
+    Light-mode defaults. `.dark` swaps these to the -dark values above via the
+    theme() function at the bottom of this file, so every component that reads
+    a single token gets the right theme without touching its markup.
+  */
+  --color-surface: var(--color-surface-light);
+  --color-surface-paper: var(--color-surface-paper-light);
+  --color-surface-card: var(--color-surface-card-light);
+  --color-on-surface: var(--color-on-surface-light);
+  --color-on-surface-variant: var(--color-on-surface-variant-light);
+  --color-text-ink: var(--color-text-ink-light);
+  --color-border-subtle: var(--color-border-subtle-light);
+  --color-kurikulum-k13: var(--color-kurikulum-k13-light);
+  --color-kurikulum-merdeka: var(--color-kurikulum-merdeka-light);
+  --color-credit-amber: var(--color-credit-amber-light);
+  --color-state-success: var(--color-state-success-light);
+  --color-state-error: var(--color-state-error-light);
+
+  /*
+    Material 3 tonal set from stitch_prd_login_page_generator. The auth
+    surfaces are built on the container ladder rather than on borders, so the
+    whole scale is carried here verbatim: lowest is the card, low the recessed
+    panel, high/highest the pressed and selected states.
+  */
+  --color-surface-dim: #cbdbf5;
+  --color-surface-bright: #f8f9ff;
+  --color-surface-container-lowest: #ffffff;
+  --color-surface-container-low: #eff4ff;
+  --color-surface-container: #e5eeff;
+  --color-surface-container-high: #dce9ff;
+  --color-surface-container-highest: #d3e4fe;
+  --color-surface-variant: #d3e4fe;
+  --color-surface-tint: #006a61;
+  --color-inverse-surface: #213145;
+  --color-inverse-on-surface: #eaf1ff;
+
+  /* Hairlines and placeholder ink for the auth forms. */
+  --color-outline: #6d7a77;
+  --color-outline-variant: #bcc9c6;
+
+  /*
+    Primary family. `--color-primary` above stays #0D9488 — the DESIGN.md
+    button spec — so the app shell is untouched. These add the tonal steps the
+    auth chrome needs: the deep resting teal and the lighter hover it lifts to.
+  */
+  --color-on-primary: #ffffff;
+  --color-primary-container: #008378;
+  --color-on-primary-container: #f4fffc;
+  --color-inverse-primary: #6bd8cb;
+  --color-primary-fixed: #89f5e7;
+  --color-primary-fixed-dim: #6bd8cb;
+  --color-on-primary-fixed: #00201d;
+  --color-on-primary-fixed-variant: #005049;
+
+  /* Secondary — informational cues, curriculum alignment, helpdesk links. */
+  --color-secondary: #006398;
+  --color-on-secondary: #ffffff;
+  --color-secondary-container: #5bb8fe;
+  --color-on-secondary-container: #00476e;
+  --color-secondary-fixed: #cce5ff;
+  --color-secondary-fixed-dim: #93ccff;
+  --color-on-secondary-fixed: #001d31;
+  --color-on-secondary-fixed-variant: #004b73;
+
+  /* Tertiary — AI credit counters and anything asking for a second look. */
+  --color-tertiary: #825100;
+  --color-on-tertiary: #ffffff;
+  --color-tertiary-container: #a36700;
+  --color-on-tertiary-container: #fffbff;
+  --color-tertiary-fixed: #ffddb8;
+  --color-tertiary-fixed-dim: #ffb95f;
+  --color-on-tertiary-fixed: #2a1700;
+  --color-on-tertiary-fixed-variant: #653e00;
+
+  /* Error container pair, alongside the existing --color-error. */
+  --color-on-error: #ffffff;
+  --color-error-container: #ffdad6;
+  --color-on-error-container: #93000a;
+
+  /* Canvas and surfaces — slate canvas, white documents on top of it. */
+  --color-paper: var(--color-surface-paper);
+  --color-paper-deep: var(--color-surface);
+  --color-sheet: var(--color-surface-card);
+  --color-canvas-high: var(--color-surface);
+
+  /* Inverse surface: overlays, avatars, the one dark chip left in the app. */
+  --color-charcoal: #213145;
+  --color-charcoal-soft: #2c3f57;
+  --color-charcoal-line: #3a4d66;
+
+  /* Type */
+  --color-ink: #0b1c30;
+  --color-ink-soft: #3a4356;
+  --color-muted: #c2cee0;
+  --color-faint: #9aa8c2;
+
+  /* Hairlines */
+  --color-rule: #dee5f5;
+  --color-rule-soft: #eef2fd;
+
+  /*
+    Primary. Edu Emerald #0D9488 is the interactive surface; #0F766E is the
+    press state; #0F766E again at text weight holds 4.5:1 on white. Aligns the
+    shared Button/Badge with the reference's teal-led action colour.
+  */
+  --color-primary: #0d9488;
+  --color-primary-deep: #0f766e;
+  --color-primary-ink: #0f766e;
+  --color-primary-soft: #ccfbf1;
+  --color-primary-tint: #f0fdfa;
+
+  /*
+    One accent name carried over from the previous system. Everything that
+    used to be a red pen mark is now the primary action colour, so the
+    accent stays a single hue across the app.
+  */
+  --color-mark: #0f766e;
+  --color-mark-tint: #ccfbf1;
+
+  /* Status. Never the only signal — always carried by a word as well. */
+  --color-tuntas: #006c49;
+  --color-tuntas-tint: #d5f6e7;
+  --color-amber: #8a5600;
+  --color-amber-tint: #ffe4c2;
+  --color-error: #ba1a1a;
+  --color-error-tint: #ffdad6;
+
+  /*
+    The soft chip fills, each shipped with the dark ink that stays legible
+    on it. Fill and ink are declared as a pair so a card can never be given
+    a colour without the text colour that reads on top of it.
+
+    sky   → primary family, Kurikulum Merdeka, LOTS/MOTS
+    lilac → HOTS (C4–C6), per the reference's violet taxonomy chip
+    mint  → validated, tuntas, hadir
+    lemon → AI quota, remedial, needs attention
+    blush → error, alpa, over limit
+  */
+  --color-sky: #dbe1ff;
+  --color-sky-ink: #1d4ed8;
+  --color-lilac: #e9e3ff;
+  --color-lilac-ink: #5b21b6;
+  --color-mint: #cdf6e5;
+  --color-mint-ink: #00614a;
+  --color-lemon: #ffe4c2;
+  --color-lemon-ink: #7a4e00;
+  --color-blush: #ffdad6;
+  --color-blush-ink: #93000a;
+
+  /* Roundedness Level 2 — approachable, still precise. */
+  --radius-control: 0.5rem;
+  --radius-sheet: 0.75rem;
+  --radius-panel: 1rem;
+  --radius-rail: 1rem;
+  --radius-dialog: 1.25rem;
+
+  /*
+    Calibrated ambient shadows. The reference leans on shadow rather than
+    border to separate a card from the canvas, so these carry more weight
+    than they did before.
+  */
+  --shadow-card: 0 1px 3px rgb(15 23 42 / 0.05), 0 1px 2px rgb(15 23 42 / 0.03);
+  --shadow-lift:
+    0 4px 12px -2px rgb(15 23 42 / 0.08), 0 2px 6px -1px rgb(15 23 42 / 0.04);
+  --shadow-float:
+    0 10px 25px -5px rgb(15 23 42 / 0.1), 0 8px 10px -6px rgb(15 23 42 / 0.04);
+  --shadow-modal:
+    0 20px 30px -10px rgb(15 23 42 / 0.16), 0 10px 15px -5px rgb(15 23 42 / 0.06);
+  --shadow-rail: 0 1px 8px rgb(11 28 48 / 0.06);
+}
+
+@layer base {
+  * {
+    border-color: var(--color-rule);
+  }
+
+  html {
+    -webkit-text-size-adjust: 100%;
+  }
+
+  body {
+    background-color: var(--color-paper);
+    color: var(--color-ink);
+    font-family: var(--font-sans);
+    font-feature-settings: "cv11";
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* Gradebooks, credit meters, score cells: no jitter while scrolling. */
+  .figures {
+    font-variant-numeric: tabular-nums lining-nums;
+    font-feature-settings: "tnum" on, "cv05" on;
+    letter-spacing: -0.015em;
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--color-primary);
+    outline-offset: 2px;
+    border-radius: 4px;
+  }
+
+  ::selection {
+    background-color: var(--color-primary);
+    color: var(--color-on-primary);
+  }
+
+  ::placeholder {
+    color: var(--color-faint);
+  }
+}
+
+/*
+  Dark mode. `.dark` swaps every surface/ink token to its -dark counterpart so
+  the whole shell repaints in one place. Shadows stay low-key on the dark
+  canvas; the focus ring and selection shift to the emerald accent.
+*/
+.dark {
+  --color-surface: var(--color-surface-dark);
+  --color-surface-paper: var(--color-surface-paper-dark);
+  --color-surface-card: var(--color-surface-card-dark);
+  --color-on-surface: var(--color-on-surface-dark);
+  --color-on-surface-variant: var(--color-on-surface-variant-dark);
+  --color-text-ink: var(--color-text-ink-dark);
+  --color-border-subtle: var(--color-border-subtle-dark);
+  --color-kurikulum-k13: var(--color-kurikulum-k13-dark);
+  --color-kurikulum-merdeka: var(--color-kurikulum-merdeka-dark);
+  --color-credit-amber: var(--color-credit-amber-dark);
+  --color-state-success: var(--color-state-success-dark);
+  --color-state-error: var(--color-state-error-dark);
+
+  --color-ink: var(--color-text-ink-dark);
+  --color-ink-soft: #a6b3d4;
+  --color-muted: #c2cee0;
+  --color-faint: #9aa8c2;
+  --color-rule: #334155;
+  --color-rule-soft: #1e2a3a;
+
+  --color-surface-dim: #162436;
+  --color-surface-bright: var(--color-surface-dark);
+  --color-surface-container-lowest: var(--color-surface-card-dark);
+  --color-surface-container-low: #1f3247;
+  --color-surface-container: #233852;
+  --color-surface-container-high: #2a415e;
+  --color-surface-container-highest: #304c6b;
+  --color-surface-variant: #304c6b;
+  --color-surface-tint: #006a61;
+  --color-inverse-surface: #eaf2ff;
+  --color-inverse-on-surface: #0b1c30;
+
+  --color-outline: #8fa3b8;
+  --color-outline-variant: #5a6a82;
+
+  --color-paper: var(--color-surface-paper-dark);
+  --color-paper-deep: var(--color-surface-dark);
+  --color-sheet: var(--color-surface-card-dark);
+  --color-canvas-high: var(--color-surface-dark);
+
+  --color-charcoal: #eaf2ff;
+  --color-charcoal-soft: #c5d2e6;
+  --color-charcoal-line: #4a5a73;
+
+  --shadow-card: 0 1px 3px rgb(0 0 0 / 0.3), 0 1px 2px rgb(0 0 0 / 0.2);
+  --shadow-lift: 0 4px 12px -2px rgb(0 0 0 / 0.4), 0 2px 6px -1px rgb(0 0 0 / 0.25);
+  --shadow-float: 0 10px 25px -5px rgb(0 0 0 / 0.5), 0 8px 10px -6px rgb(0 0 0 / 0.3);
+  --shadow-modal: 0 20px 30px -10px rgb(0 0 0 / 0.6), 0 10px 15px -5px rgb(0 0 0 / 0.35);
+  --shadow-rail: 0 1px 8px rgb(0 0 0 / 0.3);
+}
+.dark .bg-gradient-to-r.from-kurikulum-k13.via-teal-600.to-kurikulum-merdeka {
+  background-image: linear-gradient(to right, #0d9488, #2dd4bf, #0284c7);
+}
+
+
+@layer components {
+  /* A section heading: the label, then whatever acts on the section. */
+  .ledger-heading {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+  }
+
+  .sheet {
+    background-color: var(--color-sheet);
+    border: 1px solid var(--color-rule);
+    border-radius: var(--radius-sheet);
+    box-shadow: var(--shadow-card);
+  }
+
+  /*
+    The rail is a light panel now, so the focus ring no longer has to be
+    inverted. The class stays as the rail's own hook.
+  */
+  .rail {
+    background-color: var(--color-sheet);
+  }
+
+  /*
+    A section label led by a short indigo bar, the reference's way of
+    opening a block without a heavier rule.
+  */
+  .rail-mark::before {
+    content: "";
+    display: inline-block;
+    width: 0.25rem;
+    height: 1.25rem;
+    flex-shrink: 0;
+    border-radius: 9999px;
+    background-color: var(--color-primary);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+@keyframes rule-in {
+  from {
+    opacity: 0;
+    transform: translateY(4px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* Used once, for soal arriving from the assistant. */
+.soal-in {
+  animation: rule-in 320ms cubic-bezier(0.2, 0.6, 0.2, 1) both;
+}
+
+@keyframes dot-pulse {
+  0%,
+  60%,
+  100% {
+    opacity: 0.25;
+  }
+  30% {
+    opacity: 1;
+  }
+}
+
+.dot {
+  animation: dot-pulse 1.1s ease-in-out infinite;
+}
+
+.dot:nth-child(2) {
+  animation-delay: 0.16s;
+}
+
+.dot:nth-child(3) {
+  animation-delay: 0.32s;
+}
+
+/* ============================================
+   Dark Theme System
+   ============================================ */
+.dark,
+.dark html {
+  --color-surface: #0b1c30;
+  --color-surface-paper: #14253e;
+  --color-surface-card: #1a2e44;
+  --color-on-surface: #eaf1ff;
+  --color-on-surface-variant: #a6b3d4;
+  --color-text-ink: #f1f5f9;
+  --color-border-subtle: #23305a;
+  --color-surface-dim: #152138;
+  --color-surface-bright: #0b1220;
+  --color-surface-container-lowest: #11182e;
+  --color-surface-container-low: #152138;
+  --color-surface-container: #19294a;
+  --color-surface-container-high: #1e3560;
+  --color-surface-container-highest: #243d78;
+  --color-surface-variant: #19294a;
+  --color-inverse-surface: #eaf1ff;
+  --color-inverse-on-surface: #0b1220;
+  --color-outline: #7a8cb8;
+  --color-outline-variant: #3a4d7a;
+  --color-paper: #0b1220;
+  --color-paper-deep: #11182e;
+  --color-sheet: #152138;
+  --color-canvas-high: #19294a;
+  --color-charcoal: #0b1220;
+  --color-charcoal-soft: #152138;
+  --color-charcoal-line: #1e3560;
+  --color-ink: #eaf1ff;
+  --color-ink-soft: #a6b3d4;
+  --color-muted: #c2cee0;
+  --color-faint: #9aa8c2;
+  --color-rule: #23305a;
+  --color-rule-soft: #1e3560;
+  --color-primary-soft: #164a46;
+  --color-primary-tint: #0a2320;
+}
+
+.dark body,
+.dark .bg-surface,
+.dark .bg-surface-card,
+.dark .bg-white,
+.dark .bg-slate-50,
+.dark .bg-slate-100 {
+  background-color: var(--color-surface) !important;
+}
+
+.dark .text-slate-900,
+.dark .text-slate-800,
+.dark .text-slate-700 {
+  color: var(--color-text-ink) !important;
+}
+
+.dark .text-slate-600,
+.dark .text-slate-500,
+.dark .text-slate-400 {
+  color: var(--color-muted) !important;
+}
+
+.dark .border-slate-200,
+.dark .border-slate-300,
+.dark .border-border-subtle {
+  border-color: var(--color-border-subtle) !important;
+}
+
+.dark .bg-slate-900,
+.dark .bg-slate-800 {
+  background-color: var(--color-surface-card) !important;
+}
+
+/* Ensure dark class applies globally via Tailwind-like cascade */
+.dark .bg-white { background-color: var(--color-surface-card) !important; }
+.dark .bg-slate-50 { background-color: var(--color-surface) !important; }
+.dark .bg-slate-100 { background-color: var(--color-surface-container-low) !important; }
+.dark .bg-slate-900 { background-color: var(--color-surface-card) !important; }
+.dark .text-slate-900 { color: var(--color-text-ink) !important; }
+.dark .text-slate-800 { color: var(--color-ink-soft) !important; }
+.dark .text-slate-700 { color: var(--color-ink-soft) !important; }
+.dark .text-slate-600 { color: var(--color-muted) !important; }
+.dark .text-slate-500 { color: var(--color-faint) !important; }
+.dark .border-slate-200 { border-color: var(--color-border-subtle) !important; }
+.dark .border-slate-300 { border-color: var(--color-rule) !important; }
+.dark .shadow-md { --tw-shadow-color: #1e3560; }
+.dark .shadow-lg { --tw-shadow-color: #1e3560; }
+.dark .shadow-xl { --tw-shadow-color: #243d78; }
+
+/* ============================================
+   Animated Theme Toggle (View Transitions API)
+   ============================================ */
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation: none;
+  mix-blend-mode: normal;
+}
+
+html[data-magicui-theme-vt="active"]::view-transition-group(root) {
+  animation-duration: var(--magicui-theme-toggle-vt-duration, 600ms);
+}
+
+@keyframes magicui-theme-toggle-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
